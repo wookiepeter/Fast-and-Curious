@@ -9,26 +9,46 @@ public class PlayerController : MonoBehaviour {
 
     private Rigidbody rigid;
     private float direction;
-    private float speed;
-    private Vector2 MovingDirection;
+    private Vector3 speed;
+    private Vector3 MovingDirection;
 	// Use this for nitialization
 	void Start () {
         rigid = GetComponent<Rigidbody>();
         direction = transform.rotation.y;
-        MovingDirection = new Vector2(1, 0);
+        MovingDirection = new Vector3(Mathf.Sin(transform.rotation.y), 0,Mathf.Cos(transform.rotation.y));
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButton("Vertical") && speed < maxSpeed)
+        if (speed.magnitude > maxSpeed)
         {
-            rigid.AddForce(MovingDirection * acceleration);
+            rigid.velocity = speed.normalized * maxSpeed;
         }
+
+        if (Input.GetKey("up"))
+        {
+            rigid.AddForce(transform.up * acceleration);
+        }
+        else if(Input.GetKey("down"))
+        {
+            
+            rigid.AddForce(transform.up * brake);
+        }
+
+        if(Input.GetKey("left"))
+        {
+            transform.Rotate(Vector3.forward , steering);
+        }
+        else if(Input.GetKey("right"))
+        {
+            transform.Rotate(Vector3.forward, -steering);
+        }
+
+        
 	}
 
     void FixedUpdate()
     {
-        speed = new Vector2(rigid.velocity.x, rigid.velocity.z).magnitude;
-        direction = transform.rotation.y;
+        speed = new Vector3(rigid.velocity.x,0, rigid.velocity.z);
     }
 }
