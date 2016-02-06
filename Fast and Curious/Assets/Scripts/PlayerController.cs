@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : GlobalVariable {
     public float acceleration;
     public float steering;
     public float brake;
@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         rigid = GetComponent<Rigidbody>();
         direction = transform.rotation.y;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        
         speed = new Vector3(rigid.velocity.x,0, rigid.velocity.z);
     }
 }
