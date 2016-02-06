@@ -10,12 +10,10 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody rigid;
     private float direction;
     private Vector3 speed;
-    private Vector3 MovingDirection;
 	// Use this for nitialization
 	void Start () {
         rigid = GetComponent<Rigidbody>();
         direction = transform.rotation.y;
-        MovingDirection = new Vector3(Mathf.Sin(transform.rotation.y), 0,Mathf.Cos(transform.rotation.y));
 	}
 	
 	// Update is called once per frame
